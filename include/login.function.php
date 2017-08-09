@@ -44,5 +44,18 @@ require_once 'info.function.php';
             }
         }
         return $return;
+    }
 
+    function logout($user_id)
+    {
+        global $db;
+        $logout = $db->delete('token',['userid'=>$user_id]);
+        if($logout)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }

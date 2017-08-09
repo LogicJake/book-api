@@ -10,28 +10,16 @@ class Token {
      */
     public static function userid($token){
         global $db;
-        $addTime = 60*60*60;        //+5天
         $re = $db->get('token',[
-            'userid',
-            'expire'
+            'userid'
         ],[
             "tokenName" => $token
         ]);
 
         if(!$re) {
             return 0;
-        } else if($re['expire'] < time()){
-            $db->delete('token',[
-                "tokenName" => $token
-            ]);
-            return -1;//-1为过期
         } 
         else {
-            $db->update('token',[
-                'expire[+]' => $addTime
-            ],[
-                "tokenName" => $token
-            ]);//延迟过期时间
             return $re['userid'];
         }
     
@@ -41,19 +29,16 @@ class Token {
      * 添加一个token
      *
      * @param [int] $uid
-     * @param [int] 过期时间 默认为60分钟
      * @return token名
      */
-    public static function addToken($uid, $expireTime = 60*60) {
+    public static function addToken($uid) {
         global $db;
         $tokenSalt = '甲鱼666';
         $tokenName = md5($tokenSalt . time() . $uid . $tokenSalt);
         $db->insert('token',[
             'userid' => $uid,
             'tokenName' => $tokenName,
-            'expire' => time() + $expireTime
         ]);
-
         return $tokenName;
     }
 
