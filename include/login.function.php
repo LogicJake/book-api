@@ -2,12 +2,6 @@
 
 require_once 'token.class.php';
 require_once 'info.function.php';
-
-    /**
-        *@param $num user_num
-        *@param $passwd user_password
-        *@return user's id and has complete personal infomation or not
-    */
     function check_login($user_name,$user_passwd)
     {
        global $db;
@@ -80,6 +74,7 @@ require_once 'info.function.php';
             );
             $re = $db->get('user',['id'],['user_name'=> $user_name]);
             $re = $re['id'];
+            init_info($re);             //插入数据
             $token = Token::addToken($re);
             $return['token'] = $token;
             $return['status']=1;

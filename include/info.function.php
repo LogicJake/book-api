@@ -1,26 +1,15 @@
 <?php
 
-function user_info($id)
+function init_info($id)
 {
     global $db;
-        // $re =$db->get("user_info", [*],[
-        //     "user_id" => $id
-        // ]);
-    $has_complete = $db->has("user_info", [
-            "user_id" => $id
-        ]
-        );
-        if(!$has_complete)
-        {
-            $has_complete = $db->insert("user_info", [
-                    "user_id" => $id
-                ]
-                );
-        }
-    $re =$db->get("user_info","*", [
-            "user_id" => $id
-        ]
-        );
+    $db->insert("user_info", ["user_id" => $id]);
+}
+function get_info($id)
+{
+    global $db;
+    $re = $db->get("user_info",["stu_id","phone_num","qq_num","user_sign","sex","avator_url","sell_num","like_num"],
+        ["user_id" => $id]);
     return $re;
 }
 function update_phone_num($id,$phone_num)
