@@ -59,3 +59,31 @@ require_once 'info.function.php';
             return 0;
         }
     }
+
+    function signup($user_name,$user_passwd)
+    {
+        global $db;
+        $re =$db->has("user", [
+                "user_name" => $user_name,
+            ]
+            );
+        if($re)
+        {
+             $return['status']=2;
+        }
+        else
+        {
+             $re = $db->insert("user", [
+                "user_name" => $user_name,
+                "user_passwd" => $user_passwd,
+            ]
+            );
+            $re = $db->get('user',['id'],['user_name'=> $user_name]);
+            $re = $re['id'];
+            $token = Token::addToken($re);
+            $return['token'] = $token;
+            $return['status']=1;
+            $return['id']=$re;
+        }
+        return $return;
+    }

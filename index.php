@@ -19,8 +19,8 @@ $db = new Medoo([
 ]);
 
 // white list
-$actionList = ['postLogin','postLogout'];
-$noTokenList = ['postLogin'];
+$actionList = ['postLogin','postLogout','postSignup'];
+$noTokenList = ['postLogin','postSignup'];
 
 if (!isset($_GET['_action'])) {
     Result::error('missing _action');
