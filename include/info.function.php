@@ -64,18 +64,3 @@ function update_sex($id,$sex)
     $result['key'] = $sex;
     return $result;
 }
-function update_interest($user_id,$interest,$type)
-{
-    switch($type)
-    {
-        case 'add_interest':
-            return Interesting::add_interest($user_id,$interest);
-            break;
-        case 'delete_interest':
-            return Interesting::delete_interest($user_id,$interest);
-            break;
-        case 'get_interest':
-            return Interesting::get_interest($user_id,$interest);
-            break;
-    }
-}
