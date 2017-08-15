@@ -35,10 +35,13 @@ class Token {
         global $db;
         $tokenSalt = '甲鱼666';
         $tokenName = md5($tokenSalt . time() . $uid . $tokenSalt);
-        $db->insert('token',[
-            'userid' => $uid,
-            'tokenName' => $tokenName,
-        ]);
+        if ($db->has('token',['userid' => $uid])) {
+            $db->update('token',['tokenName' => $tokenName],['userid' => $uid]);
+        }
+        else
+        {
+            $db->insert('token',['userid' => $uid,'tokenName' => $tokenName]);
+        }
         return $tokenName;
     }
 

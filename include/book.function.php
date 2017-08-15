@@ -17,3 +17,23 @@
 		$res['book'] = $book;
 		return $res;
 	}
+	function search_book($query)
+	{
+		global $db;
+		$book = $db->select("book_info",['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],[
+			"OR"=>[
+				'name[~]'=>$query,
+				'author[~]'=>$query,
+				'ISBN[~]'=>$query
+				],
+			"ORDER" =>  ["add_time" => "ASC"],	//查询10条
+			"LIMIT" => [0,5]
+			]);
+		foreach ($book as &$book_)
+		{
+			$book_['seller_sex'] = $db->get("user_info","sex",["user_id" => $book_['user_id']]);
+			$book_['seller_name'] = $db->get("user","user_name",['id'=> $book_['user_id']]);
+		}
+		unset($book_);
+		return $book;
+	}
