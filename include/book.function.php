@@ -37,3 +37,76 @@
 		unset($book_);
 		return $book;
 	}
+	function add_book($uid,$ISBN,$name,$author,$publisher,$old_price,$now_price,$num,$classify,$quality,$remark)
+	{
+		global $db;
+		switch ($quality) {
+			case '全新':
+				$quality = 5;
+				break;
+			case '9成新':
+				$quality = 4;
+				break;
+			case '8成新':
+				$quality = 3;
+				break;
+			case '7成新':
+				$quality = 2;
+				break;
+			case '6成新':
+				$quality = 1;
+				break;
+			default:
+				$quality = 0;
+				break;
+		}
+		switch ($classify) {
+			case '文学艺术':
+				$classify = 9;
+				break;
+			case '人文社科':
+				$classify = 8;
+				break;
+			case '经济管理':
+				$classify = 7;
+				break;
+			case '生活休闲':
+				$classify = 6;
+				break;
+			case '外语学习':
+				$classify = 5;
+				break;
+			case '自然科学':
+				$classify = 4;
+				break;
+			case '考试教育':
+				$classify = 3;
+				break;
+			case '计算机':
+				$classify = 2;
+				break;
+			case '医学':
+				$classify = 1;
+				break;
+			default:
+				$classify = 0;
+				break;
+		}
+		$res = $db->insert("book_info",[
+			"user_id"=>$uid,
+			"name"=>$name,
+			"old_price"=>$old_price,
+			"now_price"=>$now_price, 
+			"author"=>$author,
+			"publisher"=>$publisher,
+			"quality"=>$quality,
+			"add_time"=>time(), 
+			"ISBN"=>$ISBN,
+			"num"=>$num,
+			"classify"=>$classify,
+			"remark"=>$remark]);
+		if($res>0)
+			return 1;
+		else
+			return 0;
+	}
