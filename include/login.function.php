@@ -22,6 +22,7 @@ require_once 'info.function.php';
         }
             $re = $db->get('user',['id'],['user_name'=> $user_name]);
             $re = $re['id'];
+            init_info($re);             //插入数据
             $token = Token::addToken($re);
             $return['token'] = $token;
             $return['status']=1;
