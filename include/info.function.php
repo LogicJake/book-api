@@ -8,7 +8,7 @@ function init_info($id)
 function get_info($id)
 {
     global $db;
-    $re = $db->get("user_info",["stu_id","phone_num","qq_num","user_sign","sex","avator_url","sell_num","like_num"],
+    $re = $db->get("user_info",["nick_name","phone_num","qq_num","user_sign","sex","avator_url","sell_num","like_num"],
         ["user_id" => $id]);
     return $re;
 }
