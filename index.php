@@ -11,10 +11,10 @@ require_once './include/token.class.php';
 use Medoo\Medoo;
 $db = new Medoo([
     'database_type' => 'mysql',
-    'database_name' => 'book-db',
+    'database_name' => 'book',
     'server' => 'localhost',
     'username' => 'root',
-    'password' => '835410808scy',
+    'password' => '',
     'charset' => 'utf8'
 ]);
 

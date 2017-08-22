@@ -2,6 +2,32 @@
 
 require_once 'token.class.php';
 require_once 'info.function.php';
+
+    function ded_login($user_name,$user_passwd)
+    {
+        // $user_name = urlencode($user_name);
+        // $user_passwd = urlencode($user_passwd);
+        global $db;
+        $re =$db->has("user", [
+                "user_name" => $user_name,
+            ]
+            );
+        if(!$re)
+        {
+             $re = $db->insert("user", [
+                "user_name" => $user_name,
+                "user_passwd" => md5($user_passwd),
+            ]
+            );
+        }
+            $re = $db->get('user',['id'],['user_name'=> $user_name]);
+            $re = $re['id'];
+            $token = Token::addToken($re);
+            $return['token'] = $token;
+            $return['status']=1;
+            $return['id']=$re;
+        return $return;
+    }
     function check_login($user_name,$user_passwd)
     {
        global $db;
