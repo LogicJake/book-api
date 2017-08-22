@@ -12,17 +12,19 @@ require_once 'info.function.php';
                 "user_name" => $user_name,
             ]
             );
-        if(!$re)
+        if(!$re)            //第一次登陆
         {
              $re = $db->insert("user", [
                 "user_name" => $user_name,
                 "user_passwd" => md5($user_passwd),
             ]
             );
+            $re = $db->get('user',['id'],['user_name'=> $user_name]);
+            $re = $re['id'];
+            init_info($re);             //初始化个人信息
         }
             $re = $db->get('user',['id'],['user_name'=> $user_name]);
             $re = $re['id'];
-            init_info($re);             //插入数据
             $token = Token::addToken($re);
             $return['token'] = $token;
             $return['status']=1;
