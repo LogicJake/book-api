@@ -5,6 +5,9 @@ if(isset($_POST['type'])) {
         case 'get_info':
             $return['result'] = get_info($GLOBALS['uid']);
             break;
+        case 'update_nick_num':
+            $return['result'] = update_nick_name($GLOBALS['uid'],$_POST['nick_name']);
+            break;
         case 'update_phone_num':
             $return['result'] = update_phone_num($GLOBALS['uid'],$_POST['phone_num']);
             break;

@@ -64,3 +64,16 @@ function update_sex($id,$sex)
     $result['key'] = $sex;
     return $result;
 }
+function update_nick_name($id,$nickname)
+{
+    global $db;
+    $has_complete = $db->update("user_info", [
+        "nick_name" => $nickname
+    ],[
+        "user_id" => $id
+    ]
+    );
+    $result['status'] = $has_complete?1:0;
+    $result['key'] = $nickname;
+    return $result;
+}
