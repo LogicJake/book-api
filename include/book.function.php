@@ -105,7 +105,7 @@
 			"num"=>$num,
 			"classify"=>$classify,
 			"remark"=>$remark]);
-		if($res>0)
+		if($res)
 			return 1;
 		else
 			return 0;
