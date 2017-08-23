@@ -37,7 +37,7 @@
 		unset($book_);
 		return $book;
 	}
-	function add_book($uid,$ISBN,$name,$author,$publisher,$old_price,$now_price,$num,$classify,$quality,$remark)
+	function add_book($uid,$ISBN,$name,$author,$publisher,$old_price,$now_price,$num,$classify,$quality,$remark,$pic_url)
 	{
 		global $db;
 		switch ($quality) {
@@ -93,18 +93,20 @@
 				break;
 		}
 		$res = $db->insert("book_info",[
-			"user_id"=>$uid,
-			"name"=>$name,
-			"old_price"=>$old_price,
-			"now_price"=>$now_price, 
-			"author"=>$author,
-			"publisher"=>$publisher,
-			"quality"=>$quality,
-			"add_time"=>time(), 
-			"ISBN"=>$ISBN,
-			"num"=>$num,
-			"classify"=>$classify,
-			"remark"=>$remark]);
+			"user_id"	=>	$uid,
+			"name"	=>	$name,
+			"old_price"	=>	$old_price,
+			"now_price"	=>	$now_price,
+			"author"	=>	$author,
+			"publisher"	=>	$publisher,
+			"quality"	=>	$quality,
+			"add_time"	=>	time(),
+			"ISBN"	=>	$ISBN,
+			"num"	=>	$num,
+			"classify"	=>	$classify,
+			"remark"	=>	$remark,
+			"pic_url"	=>	$pic_url
+			]);
 		if($res)
 			return 1;
 		else
