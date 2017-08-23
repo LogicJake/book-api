@@ -11,15 +11,16 @@ require_once './include/token.class.php';
 use Medoo\Medoo;
 $db = new Medoo([
     'database_type' => 'mysql',
-    'database_name' => 'book-db',
+    'database_name' => 'book',
     'server' => 'localhost',
     'username' => 'root',
-    'password' => '835410808scy',
+    'password' => '',
     'charset' => 'utf8'
 ]);
+$upload = '/www/book-file/avator';
 
 // white list
-$actionList = ['postLogin','postLogout','postSignup','getInfo','getBook','getSearch','addbook'];
+$actionList = ['postLogin','postLogout','postSignup','getInfo','getBook','getSearch','addbook','postAvator'];
 $noTokenList = ['postLogin','postSignup'];
 
 if (!isset($_GET['_action'])) {
