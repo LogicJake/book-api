@@ -5,7 +5,7 @@
 		global $db;
 		$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
-			["ORDER" =>  ["add_time" => "ASC"],	//查询5条
+			["ORDER" =>  ["add_time" => "DESC"],	//查询5条
 			"LIMIT" => [0,5]
 		]);
 		foreach ($book as &$book_)
@@ -93,6 +93,7 @@
 				break;
 		}
 		$res = $db->insert("book_info",[
+
 			"user_id"	=>	$uid,
 			"name"	=>	$name,
 			"old_price"	=>	$old_price,
@@ -107,6 +108,9 @@
 			"remark"	=>	$remark,
 			"pic_url"	=>	$pic_url
 			]);
+		$db->update("user_info",[
+			"sell_num[+]"=>1
+			],["user_id"=>$uid]);
 		if($res)
 			return 1;
 		else

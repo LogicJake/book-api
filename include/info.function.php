@@ -8,7 +8,7 @@ function init_info($id)
 function get_info($id)
 {
     global $db;
-    $re = $db->get("user_info",["stu_id","phone_num","qq_num","user_sign","sex","avator_url","sell_num","like_num"],
+    $re = $db->get("user_info",["nick_name","phone_num","qq_num","user_sign","sex","avator_url","sell_num","like_num"],
         ["user_id" => $id]);
     return $re;
 }
@@ -62,5 +62,18 @@ function update_sex($id,$sex)
     );
     $result['status'] = $has_complete?1:0;
     $result['key'] = $sex;
+    return $result;
+}
+function update_nick_name($id,$nickname)
+{
+    global $db;
+    $has_complete = $db->update("user_info", [
+        "nick_name" => $nickname
+    ],[
+        "user_id" => $id
+    ]
+    );
+    $result['status'] = $has_complete?1:0;
+    $result['key'] = $nickname;
     return $result;
 }
