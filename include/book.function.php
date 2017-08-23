@@ -121,8 +121,6 @@
 		$db->update("user_info",[
 			"sell_num[+]"=>1
 			],["user_id"=>$uid]);
-			var_dump($uid);
-			var_dump($res);
 		if($res)
 			return 1;
 		else
