@@ -36,8 +36,8 @@
 				'author[~]'=>$query,
 				'ISBN[~]'=>$query
 				],
-			"ORDER" =>  ["add_time" => "ASC"],	//查询10条
-			"LIMIT" => [0,5]
+			"ORDER" =>  ["add_time" => "DESC"],	//查询10条
+			"LIMIT" => [0,10]
 			]);
 		foreach ($book as &$book_)
 		{
