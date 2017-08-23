@@ -105,6 +105,9 @@
 			"num"=>$num,
 			"classify"=>$classify,
 			"remark"=>$remark]);
+		$db->update("user_info",[
+			"sell_num[+]"=>1
+			],["user_id"=>$uid]);
 		if($res)
 			return 1;
 		else
