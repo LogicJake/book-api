@@ -11,10 +11,10 @@ require_once './include/token.class.php';
 use Medoo\Medoo;
 $db = new Medoo([
     'database_type' => 'mysql',
-    'database_name' => 'book',
+    'database_name' => 'book-db',
     'server' => 'localhost',
     'username' => 'root',
-    'password' => '',
+    'password' => '835410808scy',
     'charset' => 'utf8'
 ]);
 $upload = '/www/book-file/avator';
