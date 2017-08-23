@@ -1,13 +1,23 @@
 <?php
 	require_once './include/info.function.php';
-	function get_book($user_id)
+	function get_book($user_id,$type)
 	{
 		global $db;
-		$book = $db->select("book_info",
+		if ($type == 0) {
+			$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
-			["ORDER" =>  ["add_time" => "DESC"],	//查询5条
-			"LIMIT" => [0,5]
+			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
+			"LIMIT" => [0,10]
 		]);
+		}
+		else{
+			$book = $db->select("book_info",
+			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
+			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
+			"LIMIT" => [0,10],
+			"classify" => $type
+			]);
+		}
 		foreach ($book as &$book_)
 		{
 			$book_['seller_sex'] = $db->get("user_info","sex",["user_id" => $book_['user_id']]);
