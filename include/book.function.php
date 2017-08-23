@@ -102,7 +102,26 @@
 				$classify = 0;
 				break;
 		}
-		$res = $db->insert("book_info",[
+		$res = $db->has("book_info",[
+			"user_id"	=>	$uid,
+			"name"	=>	$name,
+			"old_price"	=>	$old_price,
+			"now_price"	=>	$now_price,
+			"author"	=>	$author,
+			"publisher"	=>	$publisher,
+			"quality"	=>	$quality,
+			"add_time"	=>	time(),
+			"ISBN"	=>	$ISBN,
+			"num"	=>	$num,
+			"classify"	=>	$classify,
+			"remark"	=>	$remark,
+			"pic_url"	=>	$pic_url]);
+		if ($res) {
+			return 2;	//2：重复提交
+		}
+		else 			//防止重复提交
+		{
+			$res = $db->insert("book_info",[
 
 			"user_id"	=>	$uid,
 			"name"	=>	$name,
@@ -118,11 +137,12 @@
 			"remark"	=>	$remark,
 			"pic_url"	=>	$pic_url
 			]);
-		$db->update("user_info",[
-			"sell_num[+]"=>1
-			],["user_id"=>$uid]);
-		if($res)
-			return 1;
-		else
-			return 0;
+			$db->update("user_info",[
+				"sell_num[+]"=>1		
+				],["user_id"=>$uid]);
+			if($res)
+				return 1;
+			else
+				return 0;
+		}
 	}
