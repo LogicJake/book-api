@@ -110,7 +110,6 @@
 			"author"	=>	$author,
 			"publisher"	=>	$publisher,
 			"quality"	=>	$quality,
-			"add_time"	=>	time(),
 			"ISBN"	=>	$ISBN,
 			"num"	=>	$num,
 			"classify"	=>	$classify,
