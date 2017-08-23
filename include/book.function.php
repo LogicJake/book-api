@@ -11,7 +11,7 @@
 		foreach ($book as &$book_)
 		{
 			$book_['seller_sex'] = $db->get("user_info","sex",["user_id" => $book_['user_id']]);
-			$book_['seller_name'] = $db->get("user","user_name",['id'=> $book_['user_id']]);
+			$book_['seller_name'] = $db->get("user_info","nick_name",['id'=> $book_['user_id']]);
 		}
 		unset($book_);
 		$res['book'] = $book;
