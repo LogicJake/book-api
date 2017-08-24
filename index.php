@@ -41,7 +41,7 @@ if (in_array($_GET['_action'], $noTokenList)){//如果是不需要token的 actio
         Result::error('token wrong');
     }
     if ($_GET['_action'] == 'checktoken') {   //是测试就此打住返回
-        Result::success('token success');
+        Result::error('token success');
     }
     //其余为正确情况 全局并进入action
     $GLOBALS['uid'] = Token::userid($_GET['token']);
