@@ -20,7 +20,7 @@ $db = new Medoo([
 $upload = '/www/book-file/avator';
 
 // white list
-$actionList = ['postLogin','postLogout','postSignup','getInfo','getBook','getSearch','addbook','postAvator'];
+$actionList = ['postLogin','postLogout','postSignup','getInfo','getBook','getSearch','addbook','postAvator','checktoken'];
 $noTokenList = ['postLogin','postSignup'];
 
 if (!isset($_GET['_action'])) {
