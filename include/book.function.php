@@ -1,14 +1,18 @@
 <?php
 	require_once './include/info.function.php';
-	function get_book($user_id,$type)
+	function get_book($user_id,$type,$page)
 	{
+		$per_page = 5;		//一页10条数据
+    	$page = $_POST['page'];
+    	$start = ($page - 1)*$per_page;
+    	$end = $page*$per_page;
 		global $db;
 		if ($type == 0) {
 			$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [0,10]
-		]);
+			"LIMIT" => [$start,$end]
+			]);
 		}
 		else{
 			$book = $db->select("book_info",
@@ -18,6 +22,9 @@
 			"classify" => $type
 			]);
 		}
+		$is_done = 0;				//默认没有完成
+		if(count($book)<($per_page))//不足个数说明已经返回完毕
+        	$is_done = 1;
 		foreach ($book as &$book_)
 		{
 			$book_['seller_sex'] = $db->get("user_info","sex",["user_id" => $book_['user_id']]);
@@ -25,6 +32,7 @@
 		}
 		unset($book_);
 		$res['book'] = $book;
+		$res['is_done'] = $is_done;
 		return $res;
 	}
 	function search_book($query)
