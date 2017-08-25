@@ -17,8 +17,8 @@ $db = new Medoo([
     'password' => '835410808scy',
     'charset' => 'utf8'
 ]);
-$upload = '/www/book-file/avator';
-
+$upload_avator = '/www/book-file/avator';
+$upload_cover = '/www/book-file/cover';
 // white list
 $actionList = ['postLogin','postLogout','postSignup','getInfo','getBook','getSearch','addbook','postAvator','checktoken'];
 $noTokenList = ['postLogin','postSignup'];

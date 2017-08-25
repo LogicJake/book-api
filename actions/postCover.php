@@ -1,6 +1,6 @@
 <?php
     //文件存储路径
-    $file_path = $upload_avator;
+    $file_path = $upload_cover;
     //664权限为文件属主和属组用户可读和写，其他用户只读。
     if(is_dir($file_path)!=TRUE){
         mkdir($file_path,0664);
@@ -32,19 +32,13 @@
             $result['status'] = 3;
             Result::success($result);
         }
-        $avatorSalt = '一个调试的微笑';
-        $avatorName = md5($tokenSalt . time() . $GLOBALS['uid'] . $avatorSalt);
-        $new_avator_url = $avatorName . ".jpg";
-        move_uploaded_file($_FILES["file"]["tmp_name"],"$file_path"."/" . $new_avator_url);
+        $coverSalt = '一个调试的微笑';
+        $coverName = md5($tokenSalt . time() . $GLOBALS['uid'] . $coverSalt);
+        $new_cover_url = $coverName . ".jpg";
+        move_uploaded_file($_FILES["file"]["tmp_name"],"$file_path"."/" . $new_cover_url);
 
-        $db->update('user_info',[
-            'avator_url'  => $new_avator_url
-        ],[
-            'user_id'   => $GLOBALS['uid']
-        ]);
-
-        $result['avator_url'] = $new_avator_url;
-        $result['test_url'] = $file_path."/" . $new_avator_url;
+        $result['cover_url'] = $new_cover_url;
+        $result['test_url'] = $file_path."/" . $new_cover_url;
         // $result['msg'] = "文件上传成功！";
         $result['status'] = 200;
         Result::success($result);
