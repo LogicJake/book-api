@@ -22,9 +22,9 @@
 			"classify" => $type
 			]);
 		}
-		$is_done = 0;				//默认没有完成
+		$is_done = false;				//默认没有完成
 		if(count($book)<($per_page))//不足个数说明已经返回完毕
-        	$is_done = 1;
+        	$is_done = true;
 		foreach ($book as &$book_)
 		{
 			$book_['seller_sex'] = $db->get("user_info","sex",["user_id" => $book_['user_id']]);
