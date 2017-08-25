@@ -36,7 +36,7 @@
 	}
 	function search_book($query,$page)
 	{
-		$per_page = 1;		//一页10条数据
+		$per_page = 5;		//一页10条数据
     	$start = ($page - 1)*$per_page;
     	$end = $page*$per_page;
 		global $db;
