@@ -3,7 +3,6 @@
 	function get_book($user_id,$type,$page)
 	{
 		$per_page = 5;		//一页10条数据
-    	$page = $_POST['page'];
     	$start = ($page - 1)*$per_page;
     	$end = $page*$per_page;
 		global $db;
@@ -35,8 +34,11 @@
 		$res['is_done'] = $is_done;
 		return $res;
 	}
-	function search_book($query)
+	function search_book($query,$page)
 	{
+		$per_page = 5;		//一页10条数据
+    	$start = ($page - 1)*$per_page;
+    	$end = $page*$per_page;
 		global $db;
 		$book = $db->select("book_info",['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],[
 			"OR"=>[
@@ -45,15 +47,20 @@
 				'ISBN[~]'=>$query
 				],
 			"ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [0,10]
+			"LIMIT" => [$start,$end]
 			]);
+		$is_done = false;				//默认没有完成
+		if(count($book)<($per_page))//不足个数说明已经返回完毕
+        	$is_done = true;
 		foreach ($book as &$book_)
 		{
 			$book_['seller_sex'] = $db->get("user_info","sex",["user_id" => $book_['user_id']]);
 			$book_['seller_name'] = $db->get("user_info","nick_name",['id'=> $book_['user_id']]);
 		}
 		unset($book_);
-		return $book;
+		$res['book'] = $book;
+		$res['is_done'] = $is_done;
+		return $res;
 	}
 	function add_book($uid,$ISBN,$name,$author,$publisher,$old_price,$now_price,$num,$classify,$quality,$remark,$pic_url)
 	{
