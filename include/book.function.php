@@ -18,7 +18,7 @@
 			$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [0,10],
+			"LIMIT" => [$start,$end],
 			"classify" => $type
 			]);
 		}
