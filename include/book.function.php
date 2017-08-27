@@ -152,7 +152,7 @@
 			"pic_url"	=>	$pic_url
 			]);
 			$db->update("user_info",[
-				"sell_num[+]"=>1		
+				"sell_num[+]"=>1
 				],["user_id"=>$uid]);
 			if($res)
 				return 1;
