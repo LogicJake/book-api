@@ -179,17 +179,27 @@
 	function get_book_info($book_id)
 	{
 		global $db;
-		$result = $db->get("book_info",[
-			"[>]user_info" => [
-				"user_id" => "user_id"
-				]
+		$re = $db->get("book_info",[
+			"[>]user_info" => ["user_id" => "user_id"]
 		],[
-			"book_info.*",
 			"user_info.avator_url",
 			"user_info.nick_name",
-			"user_info.sell_num"
+			"user_info.sell_num",
+			"book_info.id",
+			"book_info.user_id",
+			"book_info.name",
+			"book_info.pic_url",
+			"book_info.old_price",
+			"book_info.now_price",
+			"book_info.author",
+			"book_info.publisher",
+			"book_info.quality",
+			"book_info.add_time",
+			"book_info.ISBN",
+			"book_info.num",
+			"book_info.remark"
 		],[
-			"id"=>$book_id
-		]);
-		return $result;
+			'book_info.id'=>$book_id
+			]);
+		return $re;
 	}

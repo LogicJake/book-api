@@ -14,7 +14,7 @@ $db = new Medoo([
     'database_name' => 'book-db',
     'server' => 'localhost',
     'username' => 'root',
-    'password' => '',
+    'password' => '835410808scy',
     'charset' => 'utf8'
 ]);
 $upload_avator = '/www/book-file/avator';
