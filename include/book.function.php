@@ -12,9 +12,10 @@
 			"LIMIT" => [$start,$per_page],
 			"user_id" => $user_id
 			]);
+			$num = $db->count("book_info", ["user_id" => $user_id]);
 			$db->update("user_info",[
-				"sell_num"=>count($book)		
-				],["user_id"=>$user_id]);
+				"sell_num" => $num		
+				],["user_id" => $user_id]);
 		}
 		else {
 			if ($type == 0) {
@@ -163,8 +164,9 @@
 			"remark"	=>	$remark,
 			"pic_url"	=>	$pic_url
 			]);
+			$num = $db->count("book_info", ["user_id" => $user_id]);
 			$db->update("user_info",[
-				"sell_num[+]"=>1		
+				"sell_num"=>$num		
 				],["user_id"=>$uid]);
 			if($res)
 				return 1;
