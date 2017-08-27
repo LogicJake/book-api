@@ -5,20 +5,34 @@
 		$per_page = 5;		//一页10条数据
     	$start = ($page - 1)*$per_page;
 		global $db;
-		if ($type == 0) {
-			$book = $db->select("book_info",
-			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
-			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [$start,$per_page]
-			]);
-		}
-		else{
+		if ($type == -1) {
 			$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
 			"LIMIT" => [$start,$per_page],
-			"classify" => $type
+			"user_id" => $user_id
 			]);
+			$num = $db->count("book_info", ["user_id" => $user_id]);
+			$db->update("user_info",[
+				"sell_num" => $num		
+				],["user_id" => $user_id]);
+		}
+		else {
+			if ($type == 0) {
+				$book = $db->select("book_info",
+				['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
+				["ORDER" =>  ["add_time" => "DESC"],	//查询10条
+				"LIMIT" => [$start,$per_page]
+				]);
+			}
+			else{
+				$book = $db->select("book_info",
+				['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
+				["ORDER" =>  ["add_time" => "DESC"],	//查询10条
+				"LIMIT" => [$start,$per_page],
+				"classify" => $type
+				]);
+			}
 		}
 		$is_done = false;				//默认没有完成
 		if(count($book)<($per_page))//不足个数说明已经返回完毕
@@ -150,12 +164,32 @@
 			"remark"	=>	$remark,
 			"pic_url"	=>	$pic_url
 			]);
+			$num = $db->count("book_info", ["user_id" => $user_id]);
 			$db->update("user_info",[
-				"sell_num[+]"=>1
+
+				"sell_num"=>$num
+
 				],["user_id"=>$uid]);
 			if($res)
 				return 1;
 			else
 				return 0;
 		}
+	}
+	function get_book_info($book_id)
+	{
+		global $db;
+		$result = $db->get("book_info",[
+			"[>]user_info" => [
+				"user_id" => "user_id"
+				]
+		],[
+			"book_info.*",
+			"user_info.avator_url",
+			"user_info.nick_name",
+			"user_info.sell_num"
+		],[
+			"id"=>$book_id
+		]);
+		return $result;
 	}
