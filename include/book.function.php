@@ -4,20 +4,19 @@
 	{
 		$per_page = 5;		//一页10条数据
     	$start = ($page - 1)*$per_page;
-    	$end = $page*$per_page;
 		global $db;
 		if ($type == 0) {
 			$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [$start,$end]
+			"LIMIT" => [$start,$per_page]
 			]);
 		}
 		else{
 			$book = $db->select("book_info",
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [$start,$end],
+			"LIMIT" => [$start,$per_page],
 			"classify" => $type
 			]);
 		}
