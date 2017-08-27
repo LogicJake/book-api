@@ -185,6 +185,7 @@
 			"user_info.avator_url",
 			"user_info.nick_name",
 			"user_info.sell_num",
+			"user_info.sex",
 			"book_info.id",
 			"book_info.user_id",
 			"book_info.name",
