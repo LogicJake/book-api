@@ -12,6 +12,9 @@
 			"LIMIT" => [$start,$per_page],
 			"user_id" => $user_id
 			]);
+			$db->update("user_info",[
+				"sell_num"=>count($book)		
+				],["user_id"=>$user_id]);
 		}
 		else {
 			if ($type == 0) {
