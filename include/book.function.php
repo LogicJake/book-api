@@ -205,6 +205,7 @@
 			"book_info.ISBN",
 			"book_info.num",
 			"book_info.remark"
+			"book_info.classify"
 		],[
 			'book_info.id'=>$book_id
 			]);
