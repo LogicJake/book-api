@@ -10,9 +10,10 @@
 			['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
 			"LIMIT" => [$start,$per_page],
-			"user_id" => $user_id
+			"user_id" => $user_id,
+			"status" => 1
 			]);
-			$num = $db->count("book_info", ["user_id" => $user_id]);
+			$num = $db->count("book_info", ["user_id" => $user_id,"status" => 1]);
 			$db->update("user_info",[
 				"sell_num" => $num		
 				],["user_id" => $user_id]);
@@ -22,7 +23,8 @@
 				$book = $db->select("book_info",
 				['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 				["ORDER" =>  ["add_time" => "DESC"],	//查询10条
-				"LIMIT" => [$start,$per_page]
+				"LIMIT" => [$start,$per_page],
+				"status" => 1
 				]);
 			}
 			else{
@@ -30,7 +32,8 @@
 				['id','user_id','name','pic_url','old_price','now_price','author','publisher','quality','add_time','ISBN','num','remark'],
 				["ORDER" =>  ["add_time" => "DESC"],	//查询10条
 				"LIMIT" => [$start,$per_page],
-				"classify" => $type
+				"classify" => $type,
+				"status" => 1
 				]);
 			}
 		}
@@ -60,7 +63,8 @@
 				'ISBN[~]'=>$query
 				],
 			"ORDER" =>  ["add_time" => "DESC"],	//查询10条
-			"LIMIT" => [$start,$end]
+			"LIMIT" => [$start,$end],
+			"status" => 1
 			]);
 		$is_done = false;				//默认没有完成
 		if(count($book)<($per_page))//不足个数说明已经返回完毕
@@ -142,6 +146,7 @@
 			"num"	=>	$num,
 			"classify"	=>	$classify,
 			"remark"	=>	$remark,
+			"status" => 1,
 			"pic_url"	=>	$pic_url]);
 		if ($res) {
 			return 2;	//2：重复提交
@@ -162,9 +167,10 @@
 			"num"	=>	$num,
 			"classify"	=>	$classify,
 			"remark"	=>	$remark,
-			"pic_url"	=>	$pic_url
+			"pic_url"	=>	$pic_url,
+			"status" => 1
 			]);
-			$num = $db->count("book_info", ["user_id" => $user_id]);
+			$num = $db->count("book_info", ["user_id" => $user_id,"status" => 1]);
 			$db->update("user_info",[
 
 				"sell_num"=>$num
