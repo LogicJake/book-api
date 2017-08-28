@@ -210,3 +210,17 @@
 			]);
 		return $re;
 	}
+	function delete_book($book_id)
+	{
+		global $db;
+		$res = $db->update("book_info",["status"=>0],["id"=>$book_id]);
+		if ($res->rowCount() > 0) {
+			$status['status'] = 1;
+			return $status;
+		}
+		else{
+			$status['status'] = 0;
+			return $status;
+		}
+			
+	}
