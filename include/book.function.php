@@ -337,7 +337,7 @@
 				"like_num[+]" => 1
 				],[
 				"user_id" => $user_id
-				]
+				]);
 			return 1;
 		}
 		else
