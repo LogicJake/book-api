@@ -15,7 +15,7 @@
 			]);
 			$num = $db->count("book_info", ["user_id" => $user_id,"status" => 1]);
 			$db->update("user_info",[
-				"sell_num" => $num		
+				"sell_num" => $num
 				],["user_id" => $user_id]);
 		}
 		else {
@@ -223,5 +223,103 @@
 			$status['status'] = 0;
 			return $status;
 		}
-			
+	}
+	function update_book($uid,$ISBN,$name,$author,$publisher,$old_price,$now_price,$num,$classify,$quality,$remark,$pic_url,$book_id)
+	{
+		global $db;
+		switch ($quality) {
+			case '全新':
+				$quality = 5;
+				break;
+			case '9成新':
+				$quality = 4;
+				break;
+			case '8成新':
+				$quality = 3;
+				break;
+			case '7成新':
+				$quality = 2;
+				break;
+			case '6成新':
+				$quality = 1;
+				break;
+			default:
+				$quality = 0;
+				break;
+		}
+		switch ($classify) {
+			case '文学艺术':
+				$classify = 9;
+				break;
+			case '人文社科':
+				$classify = 8;
+				break;
+			case '经济管理':
+				$classify = 7;
+				break;
+			case '生活休闲':
+				$classify = 6;
+				break;
+			case '外语学习':
+				$classify = 5;
+				break;
+			case '自然科学':
+				$classify = 4;
+				break;
+			case '考试教育':
+				$classify = 3;
+				break;
+			case '计算机':
+				$classify = 2;
+				break;
+			case '医学':
+				$classify = 1;
+				break;
+			default:
+				$classify = 0;
+				break;
+		}
+		$res = $db->has("book_info",[
+			"user_id"	=>	$uid,
+			"name"	=>	$name,
+			"old_price"	=>	$old_price,
+			"now_price"	=>	$now_price,
+			"author"	=>	$author,
+			"publisher"	=>	$publisher,
+			"quality"	=>	$quality,
+			"ISBN"	=>	$ISBN,
+			"num"	=>	$num,
+			"classify"	=>	$classify,
+			"remark"	=>	$remark,
+			"status" => 1,
+			"pic_url"	=>	$pic_url]);
+		if ($res) {
+			return 2;	//2：重复提交
+		}
+		else 			//防止重复提交
+		{
+			$res = $db->update("book_info",[
+
+			"user_id"	=>	$uid,
+			"name"	=>	$name,
+			"old_price"	=>	$old_price,
+			"now_price"	=>	$now_price,
+			"author"	=>	$author,
+			"publisher"	=>	$publisher,
+			"quality"	=>	$quality,
+			"add_time"	=>	time(),
+			"ISBN"	=>	$ISBN,
+			"num"	=>	$num,
+			"classify"	=>	$classify,
+			"remark"	=>	$remark,
+			"pic_url"	=>	$pic_url,
+			"status" => 1
+			],[
+				'id'=>$book_id
+				]);
+			if($res)
+				return 1;
+			else
+				return 0;
+		}
 	}
