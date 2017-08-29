@@ -192,6 +192,7 @@
 			"user_info.nick_name",
 			"user_info.sell_num",
 			"user_info.sex",
+			"user_info.user_sign",
 			"book_info.id",
 			"book_info.user_id",
 			"book_info.name",
