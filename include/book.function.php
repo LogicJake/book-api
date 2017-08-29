@@ -351,3 +351,24 @@
 		}
 		
 	}
+	function get_my_collection($user_id,$page){
+		$per_page = 5;		//一页10条数据
+    	$start = ($page - 1)*$per_page;
+		global $db;
+		$res = $db->select("collection",
+			['book_id'],
+			["ORDER" =>  ["add_time" => "DESC"],	//查询10条
+			"LIMIT" => [$start,$per_page],
+			"user_id" => $user_id,
+			"status" => 1
+			]);
+		$books = [];
+		foreach ($res as $name=>$value)
+			array_push($books, get_book_info($value));
+		$is_done = false;				//默认没有完成
+		if(count($books)<($per_page))//不足个数说明已经返回完毕
+        	$is_done = true;
+        $result['is_done'] = $is_done;
+        $result['book'] = $books;
+		return $result;
+	}
