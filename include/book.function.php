@@ -170,7 +170,7 @@
 			"pic_url"	=>	$pic_url,
 			"status" => 1
 			]);
-			$num = $db->count("book_info", ["user_id" => $user_id,"status" => 1]);
+			$num = $db->count("book_info", ["user_id" => $uid,"status" => 1]);
 			$db->update("user_info",[
 
 				"sell_num"=>$num
