@@ -324,3 +324,22 @@
 				return 0;
 		}
 	}
+	function collection($user_id,$book_id)
+	{
+		global $db;
+		$res = $db->insert("collection",[
+			'user_id' => $user_id,
+			'book_id' => $book_id,
+			'add_time' => time(),
+			'status' => 1]);
+		if ($res > 0) {
+			$res = $db->update("user_info",[
+				"like_num[+]" => 1
+				],[
+				"user_id" => $user_id
+				]
+			return 1;
+		}
+		else
+			return 0;
+	}
